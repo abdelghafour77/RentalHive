@@ -7,8 +7,7 @@ import { NgxSplideModule } from 'ngx-splide';
   selector: 'app-brand-slider',
   standalone: true,
   imports: [CommonModule, BrandComponent, NgxSplideModule],
-  templateUrl: './brand-slider.component.html',
-  styles: ``
+  templateUrl: './brand-slider.component.html'
 })
 export class BrandSliderComponent {
 
