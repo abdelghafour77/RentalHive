@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { User } from '../../models/user';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../services/user/user.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './users.component.html',
   styles: ``
 })

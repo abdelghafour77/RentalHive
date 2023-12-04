@@ -6,6 +6,7 @@ import { BrandSliderComponent } from './components/brand-slider/brand-slider.com
 import { UsersComponent } from './components/users/users.component';
 import { BtnComponent } from './components/btn/btn.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { FamilyComponent } from './components/family/family.component';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,7 @@ import { FooterComponent } from './components/footer/footer.component';
     BrandSliderComponent,
     UsersComponent,
     BtnComponent,
+    FamilyComponent,
     FooterComponent,
   ],
   templateUrl: './app.component.html'
