@@ -17,6 +17,7 @@ module.exports = {
       'Smooch': ['Smooch, cursive'],
       'PoorStory': ['Poor Story, cursive'],
       'Poppins': ['Poppins, sans-serif'],
+      'Delius': ['Delius, cursive'],
     },
   },
   plugins: [],
