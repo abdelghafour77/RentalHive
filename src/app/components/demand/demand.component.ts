@@ -4,7 +4,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { AsyncPipe } from '@angular/common';
@@ -43,7 +43,17 @@ export class DemandComponent implements OnInit {
   stateForm = this._formBuilder.group({
     stateGroup: '',
   });
+  duplicateForm() {
+    // Clone the form values
+    const clonedFormValues = { ...this.stateForm.value };
 
+    // Reset the cloned form values
+    this.stateForm.reset();
+
+    // Patch the form with the cloned values
+    this.stateForm.patchValue(clonedFormValues);
+  }
+  // stateForm: FormGroup;
   stateGroups: StateGroup[] = [
     {
       letter: 'A',
@@ -146,12 +156,18 @@ export class DemandComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.initForm();
     this.stateGroupOptions = this.stateForm.get('stateGroup')!.valueChanges.pipe(
       startWith(''),
       map(value => this._filterGroup(value || '')),
     );
   }
 
+  initForm() {
+    this.stateForm = this._formBuilder.group({
+      stateGroup: ['', Validators.required],
+    });
+  }
   private _filterGroup(value: string): StateGroup[] {
     if (value) {
       return this.stateGroups

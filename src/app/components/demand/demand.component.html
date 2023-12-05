@@ -1,10 +1,13 @@
-<form [formGroup]="stateForm" class="bg-slate-400 border mx-auto max-w-xl rounded-lg p-4 flex justify-around">
+<form [formGroup]="stateForm" class="bg-slate-400 border mx-auto max-w-2xl rounded-lg p-4 flex justify-around">
       <mat-form-field>
-            <mat-label>Choose a date</mat-label>
-            <input matInput [matDatepicker]="picker">
-            <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+            <mat-label>Enter a date range</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+                  <input matStartDate placeholder="Start date">
+                  <input matEndDate placeholder="End date">
+            </mat-date-range-input>
+            <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
+            <mat-date-range-picker #picker></mat-date-range-picker>
       </mat-form-field>
       <mat-form-field>
             <mat-label>States Group</mat-label>
@@ -19,4 +22,5 @@
                   }
             </mat-autocomplete>
       </mat-form-field>
+      <button type="button" (click)="duplicateForm()">Duplicate Form (+)</button>
 </form>
