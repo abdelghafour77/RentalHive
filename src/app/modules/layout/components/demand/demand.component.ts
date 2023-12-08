@@ -1,14 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatNativeDateModule } from '@angular/material/core';
 
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { AsyncPipe } from '@angular/common';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 export interface StateGroup {
   letter: string;
@@ -26,13 +22,9 @@ export const _filter = (opt: string[], value: string): string[] => {
   selector: 'app-demand',
   standalone: true,
   imports: [
-    MatFormFieldModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
+    NgSelectModule,
     FormsModule,
     ReactiveFormsModule,
-    MatAutocompleteModule,
     AsyncPipe,
   ],
   templateUrl: './demand.component.html',
@@ -40,141 +32,23 @@ export const _filter = (opt: string[], value: string): string[] => {
 })
 export class DemandComponent implements OnInit {
 
-  stateForm = this._formBuilder.group({
-    stateGroup: '',
-  });
-  duplicateForm() {
-    // Clone the form values
-    const clonedFormValues = { ...this.stateForm.value };
+  public ngOnInit(): void {
 
-    // Reset the cloned form values
-    this.stateForm.reset();
-
-    // Patch the form with the cloned values
-    this.stateForm.patchValue(clonedFormValues);
   }
-  // stateForm: FormGroup;
-  stateGroups: StateGroup[] = [
-    {
-      letter: 'A',
-      names: ['Alabama', 'Alaska', 'Arizona', 'Arkansas'],
-    },
-    {
-      letter: 'C',
-      names: ['California', 'Colorado', 'Connecticut'],
-    },
-    {
-      letter: 'D',
-      names: ['Delaware'],
-    },
-    {
-      letter: 'F',
-      names: ['Florida'],
-    },
-    {
-      letter: 'G',
-      names: ['Georgia'],
-    },
-    {
-      letter: 'H',
-      names: ['Hawaii'],
-    },
-    {
-      letter: 'I',
-      names: ['Idaho', 'Illinois', 'Indiana', 'Iowa'],
-    },
-    {
-      letter: 'K',
-      names: ['Kansas', 'Kentucky'],
-    },
-    {
-      letter: 'L',
-      names: ['Louisiana'],
-    },
-    {
-      letter: 'M',
-      names: [
-        'Maine',
-        'Maryland',
-        'Massachusetts',
-        'Michigan',
-        'Minnesota',
-        'Mississippi',
-        'Missouri',
-        'Montana',
-      ],
-    },
-    {
-      letter: 'N',
-      names: [
-        'Nebraska',
-        'Nevada',
-        'New Hampshire',
-        'New Jersey',
-        'New Mexico',
-        'New York',
-        'North Carolina',
-        'North Dakota',
-      ],
-    },
-    {
-      letter: 'O',
-      names: ['Ohio', 'Oklahoma', 'Oregon'],
-    },
-    {
-      letter: 'P',
-      names: ['Pennsylvania'],
-    },
-    {
-      letter: 'R',
-      names: ['Rhode Island'],
-    },
-    {
-      letter: 'S',
-      names: ['South Carolina', 'South Dakota'],
-    },
-    {
-      letter: 'T',
-      names: ['Tennessee', 'Texas'],
-    },
-    {
-      letter: 'U',
-      names: ['Utah'],
-    },
-    {
-      letter: 'V',
-      names: ['Vermont', 'Virginia'],
-    },
-    {
-      letter: 'W',
-      names: ['Washington', 'West Virginia', 'Wisconsin', 'Wyoming'],
-    },
+
+  selectedAccount = 'Adam';
+  accounts = [
+    { name: 'Adam', email: 'adam@email.com', age: 12, country: 'United States', child: { state: 'Active' } },
+    { name: 'Homer', email: 'homer@email.com', age: 47, country: '', child: { state: 'Active' } },
+    { name: 'Samantha', email: 'samantha@email.com', age: 30, country: 'United States', child: { state: 'Active' } },
+    { name: 'Amalie', email: 'amalie@email.com', age: 12, country: 'Argentina', child: { state: 'Active' } },
+    { name: 'Estefanía', email: 'estefania@email.com', age: 21, country: 'Argentina', child: { state: 'Active' } },
+    { name: 'Adrian', email: 'adrian@email.com', age: 21, country: 'Ecuador', child: { state: 'Active' } },
+    { name: 'Wladimir', email: 'wladimir@email.com', age: 30, country: 'Ecuador', child: { state: 'Inactive' } },
+    { name: 'Natasha', email: 'natasha@email.com', age: 54, country: 'Ecuador', child: { state: 'Inactive' } },
+    { name: 'Nicole', email: 'nicole@email.com', age: 43, country: 'Colombia', child: { state: 'Inactive' } },
+    { name: 'Michael', email: 'michael@email.com', age: 15, country: 'Colombia', child: { state: 'Inactive' } },
+    { name: 'Nicolás', email: 'nicole@email.com', age: 43, country: 'Colombia', child: { state: 'Inactive' } }
   ];
 
-  stateGroupOptions!: Observable<StateGroup[]>;
-
-  constructor(private _formBuilder: FormBuilder) { }
-
-  ngOnInit() {
-    this.initForm();
-    this.stateGroupOptions = this.stateForm.get('stateGroup')!.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filterGroup(value || '')),
-    );
-  }
-
-  initForm() {
-    this.stateForm = this._formBuilder.group({
-      stateGroup: ['', Validators.required],
-    });
-  }
-  private _filterGroup(value: string): StateGroup[] {
-    if (value) {
-      return this.stateGroups
-        .map(group => ({ letter: group.letter, names: _filter(group.names, value) }))
-        .filter(group => group.names.length > 0);
-    }
-
-    return this.stateGroups;
-  }
 }

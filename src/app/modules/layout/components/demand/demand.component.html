@@ -1,26 +1,21 @@
-<form [formGroup]="stateForm" class="bg-slate-400 border mx-auto max-w-2xl rounded-lg p-4 flex justify-around">
-      <mat-form-field>
-            <mat-label>Enter a date range</mat-label>
-            <mat-date-range-input [rangePicker]="picker">
-                  <input matStartDate placeholder="Start date">
-                  <input matEndDate placeholder="End date">
-            </mat-date-range-input>
-            <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-date-range-picker #picker></mat-date-range-picker>
-      </mat-form-field>
-      <mat-form-field>
-            <mat-label>States Group</mat-label>
-            <input type="text" matInput formControlName="stateGroup" required [matAutocomplete]="autoGroup">
-            <mat-autocomplete #autoGroup="matAutocomplete">
-                  @for (group of stateGroupOptions | async; track group) {
-                  <mat-optgroup [label]="group.letter">
-                        @for (name of group.names; track name) {
-                        <mat-option [value]="name">{{name}}</mat-option>
-                        }
-                  </mat-optgroup>
-                  }
-            </mat-autocomplete>
-      </mat-form-field>
-      <button type="button" (click)="duplicateForm()">Duplicate Form (+)</button>
+<form class="bg-slate-400 border mx-auto max-w-2xl rounded-lg p-4 flex justify-around">
+      <div>
+            <p>
+                  You can group by item key providing key name as a string to <b>groupBy</b> input
+            </p>
+
+            <ng-select [items]="accounts" bindLabel="name" bindValue="name" groupBy="country"
+                  [(ngModel)]="selectedAccount" [ngModelOptions]="{standalone: true}">
+                  <ng-template ng-optgroup-tmp let-item="item">
+                        {{item.country || 'Unnamed group'}}
+                  </ng-template>
+            </ng-select>
+
+            <br>
+            <!-- <small>Selected: {{selectedAccount}}</small> -->
+      </div>
+      <div class="col-xs-12 col-12 col-md-4 form-group mb-3">
+            <input type="text" placeholder="Daterangepicker" class="form-control" bsDaterangepicker>
+      </div>
+
 </form>
